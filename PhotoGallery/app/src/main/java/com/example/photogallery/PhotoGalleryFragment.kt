@@ -36,25 +36,10 @@ class PhotoGalleryFragment: Fragment() {
         super.onCreate(savedInstanceState)
 
         retainInstance = true
-//        val flickLiveData:LiveData<List<photo>> = NasaFetchr().fetchPhotos()
 
-//        flickLiveData.observe(
-//            this,
-//            Observer {photo_list->
-////                val gson = Gson()
-////                val from_json = gson.fromJson(reponseSrting,photoArray::class.java)
-////                val photo_list = from_json.photos
-////                val jsonObject = JSONArray(reponseSrting).getJSONObject(0)
-////                val id = jsonObject.getInt("id")
-////                val photo = JSONObject(reponseSrting_temp)
-////                val id = photo.getInt("id")
-//                Log.d(TAG,"Response :${photo_list.size}")
-//
-//            }
-//        )
         photoGalleryViewModel =
             ViewModelProviders.of(this).get(PhotoGalleryViewModel::class.java)
-//        downloader = Downloader()
+            
         val responseHandler = Handler()
            downloader = Downloader(responseHandler) {photoHolder,bitmap ->
                val drawable = BitmapDrawable(resources,bitmap)
@@ -106,15 +91,12 @@ class PhotoGalleryFragment: Fragment() {
     private class PhotoHolder(private val itemImageView:ImageView)
         :RecyclerView.ViewHolder(itemImageView)
     {
-//        val bindTitle:(CharSequence) ->Unit = itemTextView::setText
             val bindDrawable:(Drawable) ->Unit = itemImageView::setImageDrawable
     }
 
     private inner class PhotoAdapter(private val photo_list:List<photo>):RecyclerView.Adapter<PhotoHolder>()
     {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
-//            val textView = TextView(parent.context)
-//            return PhotoHolder(textView)
             val view = layoutInflater.inflate(
                 R.layout.list_item_gallery,
                 parent,
@@ -129,7 +111,6 @@ class PhotoGalleryFragment: Fragment() {
 
         override fun onBindViewHolder(holder: PhotoHolder, position: Int) {
            val photo = photo_list[position]
-//            holder.bindTitle(photo.img_src)
             val placeholder:Drawable = ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.navi
