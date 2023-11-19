@@ -8,10 +8,8 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Url
 
-private const val API_KEY = "4OapMD6g9xz0v4LLGFYecoQ0awKHoPwfuoum8Dgn"
+private const val API_KEY = "YOUR API KEY"
 interface NasaApi {
-//    @GET("/")
-//    fun fetchContents(): Call<String>
     @GET(
         "mars-photos/api/v1/rovers/"+
                 "curiosity"+
