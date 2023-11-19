@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 private const val API_KEY = "YOUR API KEY"
+// here you can change "curiosity" to others and you can change sol to other number
 interface NasaApi {
     @GET(
         "mars-photos/api/v1/rovers/"+
