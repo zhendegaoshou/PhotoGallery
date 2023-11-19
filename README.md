@@ -1,4 +1,4 @@
-# PhotoGallery
+# PhotoGallery_From Nasa
 An Android Project about how to get pictures from Nasa and show on App
 
 **1.you should change the API_KEY and file_root_path(NasaFetchr.kt中)**
