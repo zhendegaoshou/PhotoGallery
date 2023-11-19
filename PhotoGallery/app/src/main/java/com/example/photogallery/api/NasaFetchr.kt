@@ -17,10 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.File
 import java.io.FileOutputStream
-
-private const val API_KEY = "4OapMD6g9xz0v4LLGFYecoQ0awKHoPwfuoum8Dgn"
+// YOU SHOULD CHANGE API_KEY AND FILE NAME TO YOUR OWN KEY AND PATH
+private const val API_KEY = "YOUR API KEY"
 private const val TAG = "PhotoGalleryFragment"
-private const val file_path_root = "/storage/emulated/0/Android/data/com.example.photogallery/files"
+private const val file_path_root = "YOUR FILE STORAGE ROOT NAME"
 
 class NasaFetchr {
     private val nasaApi:NasaApi
@@ -39,37 +39,42 @@ class NasaFetchr {
 
     fun read_photos(file_path: String)
     {
+        // 判断文件夹是否存在，不存在创建
         val file = File(file_path)
         if(!file.exists())
         {
             file.mkdirs()
-            Log.d(TAG,"photo already created")
+            // Log.d(TAG,"photo already created")
         }
-        else
-        {
-            Log.d(TAG,"File existed")
-        }
+        // else
+        // {
+        //     Log.d(TAG,"File existed")
+        // }
 
     }
     @WorkerThread
     fun fetchPhoto(url:String): Bitmap? {
+        // 获取文件的名称
         val file_last_name_array = url.split("/")
         val file_last_name = file_last_name_array.get(file_last_name_array.size-1)
         val file = File(file_path_root+"/photos"+"/"+file_last_name)
         val file_name = file_path_root+"/photos"+"/"+file_last_name
+        // 如果文件已存在，那么直接从文件读取
         if (file.exists())
         {
             val fis = file.inputStream()
             val bitmap = BitmapFactory.decodeStream(fis)
             fis.close()
-            Log.d(TAG,"已从文件中读取${file_name}")
+            // Log.d(TAG,"已从文件中读取${file_name}")
             return bitmap
         }
+        // 如果不存在，那么就从网络上下载并且存储到文件中
         else
         {
             val response: Response<ResponseBody> = nasaApi.fetchUrlBytes(url).execute()
             val bitmap = response.body() ?.byteStream()?.use(BitmapFactory::decodeStream)
-            Log.i(TAG,"Decoded bitmap=$bitmap from response=$response")
+            // Log.i(TAG,"Decoded bitmap=$bitmap from response=$response")
+            
             val fos:FileOutputStream = FileOutputStream(file)
             if (bitmap != null) {
                 bitmap.compress(Bitmap.CompressFormat.JPEG,80,fos)
@@ -103,7 +108,7 @@ class NasaFetchr {
                         it.img_src.isBlank()
                     }
                 }
-                Log.d(TAG,"Response Received")
+                // Log.d(TAG,"Response Received")
                 responseLiveData.value = photoResponse
 
 
